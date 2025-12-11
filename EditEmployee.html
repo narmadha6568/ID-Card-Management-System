@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit Employee</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
+<style>
+body {
+	background-color: #F0F8FF;
+	color: #800080;
+}
+
+.container {
+	background-color: #FFFFFF;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+	background-color: #800080;
+	border-color: #800080;
+}
+
+.btn-primary:hover {
+	background-color: #4B0082;
+	border-color: #4B0082;
+}
+
+.btn-outline-primary {
+	color: #800080;
+	border-color: #800080;
+}
+
+.btn-outline-primary:hover {
+	color: #FFFFFF;
+	background-color: #800080;
+	border-color: #800080;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 mx-auto rounded border p-4 m-4">
+				<h2 class="text-center mb-5">Edit Employee</h2>
+
+				<form method="post" enctype="multipart/form-data"
+					th:object="${employeeDto}">
+					<!-- ID -->
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">ID</label>
+						<div class="col-sm-8">
+							<input readonly class="form-control-plaintext" th:field="*{id}">
+						</div>
+					</div>
+
+					<!-- Name -->
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Name</label>
+						<div class="col-sm-8">
+							<input class="form-control" th:field="*{name}">
+							<p th:if="${#fields.hasErrors('name')}" class="text-danger"
+								th:errors="*{name}"></p>
+						</div>
+					</div>
+
+					<!-- City -->
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">City</label>
+						<div class="col-sm-8">
+							<input class="form-control" th:field="*{city}">
+							<p th:if="${#fields.hasErrors('city')}" class="text-danger"
+								th:errors="*{city}"></p>
+						</div>
+					</div>
+
+					<!-- Designation -->
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Designation</label>
+						<div class="col-sm-8">
+							<select class="form-select" th:field="*{designation}">
+								<option value="Other">Other</option>
+								<option value="Developer">Developer</option>
+								<option value="Tester">Tester</option>
+								<option value="Analyst">Analyst</option>
+								<option value="Administrator">Administrator</option>
+							</select>
+							<p th:if="${#fields.hasErrors('designation')}"
+								class="text-danger" th:errors="*{designation}"></p>
+						</div>
+					</div>
+
+					<!-- Contact Details -->
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Contact Details</label>
+						<div class="col-sm-8">
+							<input class="form-control" th:field="*{contactDetails}">
+							<p th:if="${#fields.hasErrors('contactDetails')}"
+								class="text-danger" th:errors="*{contactDetails}"></p>
+						</div>
+					</div>
+
+					<!-- About -->
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">About</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" th:field="*{about}"></textarea>
+							<p th:if="${#fields.hasErrors('about')}" class="text-danger"
+								th:errors="*{about}"></p>
+						</div>
+					</div>
+
+					<!-- Image Preview -->
+					<div class="row mb-3">
+						<div class="offset-sm-4 col-sm-8">
+							<img th:src="@{'/Images/' + ${employeeDto.imageFileName}}"
+								alt="..." width="150">
+						</div>
+					</div>
+
+					<!-- Image Upload -->
+					<div class="row mb-3">
+						<label class="col-sm-4 col-form-label">Image</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="file" th:field="*{imageFile}">
+							<p th:if="${#fields.hasErrors('imageFile')}" class="text-danger"
+								th:errors="*{imageFile}"></p>
+						</div>
+					</div>
+
+					<!-- Joined At -->
+					<div class="row mb-3">
+					    <label class="col-sm-4 col-form-label">Joined At</label>
+					    <div class="col-sm-8">
+					        <input type="hidden" th:field="*{joinedAt}" />
+							<p> <span th:text="${#temporals.format(employeeDto.joinedAt, 'dd-MM-yyyy')}"></span>
+							</p>
+					    </div>
+					</div>
+
+					<!-- Buttons -->
+					<div class="row">
+						<div class="offset-sm-4 col-sm-4 d-grid">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+						<div class="col-sm-4 d-grid">
+							<a class="btn btn-outline-primary" href="/employees"
+								role="button">Cancel</a>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+</body>
+</html>
